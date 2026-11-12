@@ -21,7 +21,7 @@
 /* liquid glass: translucent + blurred background */
 .menu {
   position: fixed;
-  z-index: 10;
+  z-index: 1050; /* above leaflet panes (400+) and map controls (1000) */
   display: flex;
   overflow: hidden;
   background: color-mix(in srgb, var(--surface) 55%, transparent);

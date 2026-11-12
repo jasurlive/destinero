@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { DomEvent } from "leaflet";
-import { FiSearch, FiNavigation, FiMaximize, FiPlus, FiMinus } from "react-icons/fi";
+import { FiSearch, FiNavigation, FiMaximize } from "react-icons/fi";
 import { ImSpinner2 } from "react-icons/im";
 import { useMap } from "react-leaflet";
 import { useFlyTo } from "../hooks/useFlyTo";
@@ -71,12 +71,6 @@ export default function Controls({ addPin, search: withSearch }: { addPin: (pin:
       )}
 
       <div className="map-buttons">
-        <button type="button" onClick={() => map.zoomIn()} title="Zoom in">
-          <FiPlus />
-        </button>
-        <button type="button" onClick={() => map.zoomOut()} title="Zoom out">
-          <FiMinus />
-        </button>
         <button type="button" onClick={locate} title="My location">
           {busy === "locate" ? <ImSpinner2 className="spin" /> : <FiNavigation />}
         </button>
