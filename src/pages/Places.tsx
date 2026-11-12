@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { FiMapPin, FiSearch } from "react-icons/fi";
 import "../css/places.css";
-import { usePlaces, type PlaceType } from "../hooks/usePlaces";
+import { usePlaces, type Place, type PlaceType } from "../hooks/usePlaces";
+
+// Fisher-Yates on a copy: a fresh order on every visit
+const shuffle = (list: Place[]) => {
+  const out = [...list];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+};
 
 const TABS: { type: PlaceType | "all"; label: string }[] = [
   { type: "all", label: "All" },
@@ -21,7 +31,10 @@ export default function Places({ embed = false }: { embed?: boolean }) {
   const count = (type: PlaceType | "all") =>
     type === "all" ? places.length : places.filter((p) => p.type === type).length;
 
-  const shown = places.filter(
+  // shuffled once when the places arrive, so filtering / tabs don't reshuffle
+  const shuffled = useMemo(() => shuffle(places), [places]);
+
+  const shown = shuffled.filter(
     (p) => (tab === "all" || p.type === tab) && p.name.toLowerCase().includes(query.toLowerCase()),
   );
 

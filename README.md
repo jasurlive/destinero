@@ -18,7 +18,7 @@ mobile), theme tokens, and light / dark themes.
 
 ```bash
 npm install
-cp .env.example .env     # optional: VITE_MAPKEY=<MapTiler key>, otherwise free CARTO tiles are used
+cp .env.example .env     # optional: MAPKEY=<MapTiler key> (kept server-side via api/tiles.ts), otherwise free CARTO tiles are used
 npm run dev              # http://localhost:2020
 ```
 
@@ -64,14 +64,15 @@ python scripts/places.py list --type visited
 ```
 public/data/places.csv     all places
 scripts/places.py           add / list helper
-src/ts/                    App (routes), main
-src/tools/
-  components/              Layout (with navbar), Embed (without), ErrorBoundary
-  shared/Menu.tsx          sidebar / bottom bar + theme toggle
-  pages/                   MapPage, Places, Help, NotFound
-  map/                     Markers, PopUp, Controls
-  hooks/                   usePlaces (CSV), useTheme, useShortcuts, useFlyTo
-  css/                     theme tokens, reset, menu, page, map, places
+src/app/                   App (routes), main, env types
+src/components/            Layout (with navbar), Embed (without), ErrorBoundary
+src/shared/                Menu (sidebar / bottom bar), MenuSearch, ThemeIcons
+src/pages/                 MapPage, Places, Help, NotFound
+src/map/                   Markers, PopUp, Controls, geocode
+src/hooks/                 usePlaces (CSV), useTheme, useShortcuts, useFlyTo
+src/lib/                   themes (theme list + labels)
+src/css/                   theme tokens, reset, menu, page, map, places
+api/tiles.ts               map tile proxy (keeps MAPKEY server-side, Vercel function)
 ```
 
-Add a page: create it in `src/tools/pages`, add a `<Route>` in `src/ts/App.tsx` and an item in `Menu.tsx`.
+Add a page: create it in `src/pages`, add a `<Route>` in `src/app/App.tsx` and an item in `Menu.tsx`.

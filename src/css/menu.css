@@ -1,0 +1,239 @@
+.with-menu {
+  --menu-w: 200px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* page area next to the navbar: put backgrounds / centered content here */
+.menu-page {
+  position: relative;
+  display: grid; /* lets a page stretch to full height (e.g. centered 404) */
+  grid-template-columns: minmax(0, 1fr); /* wide content can't push the page sideways */
+  flex: 1;
+  min-width: 0;
+}
+
+.with-menu:has(.menu-collapsed) {
+  --menu-w: 56px;
+}
+
+/* liquid glass: translucent + blurred background */
+.menu {
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 35%, transparent),
+    0 8px 30px rgb(0 0 0 / 0.12);
+}
+
+.menu-item,
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 56px;
+  padding: 0 17px;
+  color: inherit;
+  font-size: 22px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.menu-toggle {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.menu-item:hover,
+.menu-toggle:hover {
+  background: var(--hover);
+  color: var(--text-strong);
+}
+
+.menu-item.is-pressed {
+  background: var(--hover);
+  color: var(--text-strong);
+}
+
+.menu-item.active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 var(--accent);
+}
+
+.menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menu-label {
+  font-size: 16px;
+}
+
+.menu-collapsed .menu-label {
+  display: none;
+}
+
+.menu-collapsed .menu-item {
+  justify-content: center;
+  padding: 0;
+}
+
+/* attached sidebar with a glowing accent bar on desktop */
+@media (min-width: 769px) {
+  .with-menu {
+    padding-left: var(--menu-w);
+    transition: padding-left 0.2s;
+  }
+
+  .menu {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    flex-direction: column;
+    width: var(--menu-w);
+    border-width: 0 1px 0 0;
+    transition: width 0.2s;
+  }
+
+  .menu-item {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .menu-item.active {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    box-shadow: none;
+  }
+
+  /* rounded accent bar with a soft glow */
+  .menu-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 10px;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+}
+
+/* floating pill at the bottom on phones */
+@media (max-width: 768px) {
+  .menu-desktop-only {
+    display: none;
+  }
+
+  .with-menu {
+    --bar-space: calc(78px + env(safe-area-inset-bottom));
+    padding-bottom: var(--bar-space);
+  }
+
+  .menu {
+    left: 10px;
+    right: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    height: 58px;
+    flex-direction: row;
+    border-radius: 22px;
+  }
+
+  .menu-item {
+    flex: 1;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+    font-size: 21px;
+  }
+
+  .menu-item.active {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    box-shadow: none;
+  }
+
+  .menu-label,
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* ---------- navbar search (floating glass bar) ---------- */
+
+.menu-search {
+  position: fixed;
+  z-index: 1100; /* above leaflet panes / controls */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 48px;
+  padding: 0 0.4rem 0 0.9rem;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  border-radius: 14px;
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 35%, transparent),
+    0 8px 30px rgb(0 0 0 / 0.14);
+  animation: menu-search-in 0.15s ease-out;
+}
+
+.menu-search:focus-within { border-color: var(--accent); }
+.menu-search.not-found { border-color: var(--danger); }
+
+.menu-search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--text-strong);
+  font-size: 16px; /* 16px+ stops iOS zooming into the input */
+}
+
+.menu-search button {
+  display: flex;
+  padding: 0.45rem;
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+.menu-search button:hover { background: var(--hover); color: var(--text-strong); }
+
+@keyframes menu-search-in {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+
+/* desktop: next to the sidebar, level with the Search item */
+@media (min-width: 769px) {
+  .menu-search {
+    top: var(--search-top, 60px);
+    left: calc(var(--menu-w) + 10px);
+    width: min(380px, calc(100vw - var(--menu-w) - 20px));
+  }
+}
+
+/* phones: just above the floating pill */
+@media (max-width: 768px) {
+  .menu-search {
+    left: 10px;
+    right: 10px;
+    bottom: var(--bar-space);
+  }
+}

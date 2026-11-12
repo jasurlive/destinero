@@ -11,12 +11,13 @@
 }
 
 /* dim the tiles a little in dark mode so markers pop */
-[data-theme='dark'] .leaflet-tile-pane {
+[data-theme='dark'] .leaflet-tile-pane,
+[data-theme='charcoal'] .leaflet-tile-pane {
   filter: brightness(0.9) contrast(1.05);
 }
 
 @media (max-width: 768px) {
-  .with-menu .map-page { height: calc(100dvh - 56px); }
+  .with-menu .map-page { height: calc(100dvh - var(--bar-space)); }
 }
 
 /* ---------- markers ---------- */
@@ -27,19 +28,31 @@
   justify-content: center;
   color: var(--c);
   font-size: 28px;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
-  transition: transform 0.15s;
 }
 
-.pin svg { width: 1em; height: 1em; }
+/* Leaflet positions markers with `transform` on this element, so it must never
+   get a transform transition (that made pins slide / jump while zooming).
+   All effects go on the svg inside instead. */
+.pin svg {
+  width: 1em;
+  height: 1em;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+  transform-origin: bottom;
+  transition: transform 0.15s;
+}
 .leaflet-marker-icon.pin { background: none; border: 0; }
-.leaflet-marker-icon.pin:hover { transform-origin: bottom; z-index: 1000 !important; }
-.leaflet-marker-icon.pin:hover svg { transform: scale(1.2); }
+@media (hover: hover) {
+  .leaflet-marker-icon.pin:hover { z-index: 1000 !important; }
+  .leaflet-marker-icon.pin:hover svg { transform: scale(1.2); }
+}
 .pin-highlighted svg { animation: pulse 1.6s ease-in-out infinite; }
 
 @keyframes pulse {
   50% { transform: scale(1.25); }
 }
+
+/* blank map-coloured area while places load (first view is a random place) */
+.map-loading { background: var(--bg); }
 
 /* ---------- floating panels ---------- */
 

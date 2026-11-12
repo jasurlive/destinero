@@ -1,0 +1,187 @@
+/* ---------- theme tokens ---------- */
+/* set via <html data-theme="light|dark|linen|fjord|matte|charcoal|paper"> (see lib/themes.ts, useTheme + index.html) */
+
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #eef2f7;
+  --bg-elev: #ffffff;
+  --surface: #f3f6fb;
+  --text: #1f2937;
+  --text-strong: #0f172a;
+  --muted: #5b6475;
+  --border: rgba(15, 23, 42, 0.12);
+  --hover: rgba(15, 23, 42, 0.05);
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-soft: rgba(37, 99, 235, 0.1);
+  --danger: #dc2626;
+  --shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  --glass: rgba(255, 255, 255, 0.86);
+  --visited: #1d4ed8;
+  --planned: #db2777;
+  --highlighted: #9333ea;
+  --searched: #0891b2;
+  --live: #16a34a;
+  --clicked: #dc2626;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #080e1a;
+  --bg-elev: #0d1526;
+  --surface: #1a1e3c;
+  --text: #d1d5db;
+  --text-strong: #f1f5f9;
+  --muted: #9ca3af;
+  --border: rgba(255, 255, 255, 0.1);
+  --hover: rgba(255, 255, 255, 0.07);
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-soft: rgba(59, 130, 246, 0.14);
+  --danger: #f87171;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --glass: rgba(13, 21, 38, 0.86);
+  --visited: #60a5fa;
+  --planned: #f472b6;
+  --highlighted: #c084fc;
+  --searched: #22d3ee;
+  --live: #4ade80;
+  --clicked: #f87171;
+}
+
+/* ---------- extra themes: calm scandinavian palettes ---------- */
+/* turn off with VITE_ENABLE_EXTRA_THEMES=false */
+
+/* warm off-white, oak/taupe accent */
+:root[data-theme='linen'] {
+  color-scheme: light;
+  --bg: #f4f1ec;
+  --bg-elev: #fbfaf7;
+  --surface: #ece8e1;
+  --text: #3a3835;
+  --text-strong: #23211f;
+  --muted: #77726a;
+  --border: rgba(58, 56, 53, 0.12);
+  --hover: rgba(58, 56, 53, 0.05);
+  --accent: #7a6a56;
+  --accent-hover: #66584a;
+  --accent-soft: rgba(122, 106, 86, 0.12);
+  --danger: #b4534b;
+  --shadow: 0 6px 20px rgba(58, 56, 53, 0.06);
+  --glass: rgba(251, 250, 247, 0.88);
+  --visited: #1d4ed8;
+  --planned: #db2777;
+  --highlighted: #9333ea;
+  --searched: #0891b2;
+  --live: #16a34a;
+  --clicked: #dc2626;
+}
+
+/* cool misty grey, muted slate-blue accent */
+:root[data-theme='fjord'] {
+  color-scheme: light;
+  --bg: #eef1f3;
+  --bg-elev: #f8fafb;
+  --surface: #e4e9ec;
+  --text: #2f3a42;
+  --text-strong: #1c252c;
+  --muted: #6b7781;
+  --border: rgba(47, 58, 66, 0.12);
+  --hover: rgba(47, 58, 66, 0.05);
+  --accent: #4f6d7a;
+  --accent-hover: #3f5a66;
+  --accent-soft: rgba(79, 109, 122, 0.12);
+  --danger: #b0504a;
+  --shadow: 0 6px 20px rgba(47, 58, 66, 0.06);
+  --glass: rgba(248, 250, 251, 0.88);
+  --visited: #1d4ed8;
+  --planned: #db2777;
+  --highlighted: #9333ea;
+  --searched: #0891b2;
+  --live: #16a34a;
+  --clicked: #dc2626;
+}
+
+/* matte: soft stone grey, low-glare, muted clay accent */
+:root[data-theme='matte'] {
+  color-scheme: light;
+  --bg: #e8e6e3;
+  --bg-elev: #f0eeeb;
+  --surface: #e1dfdb;
+  --text: #3b3936;
+  --text-strong: #262422;
+  --muted: #75716b;
+  --border: rgba(59, 57, 54, 0.12);
+  --hover: rgba(59, 57, 54, 0.05);
+  --accent: #8a6f5e;
+  --accent-hover: #745c4d;
+  --accent-soft: rgba(138, 111, 94, 0.12);
+  --danger: #b0504a;
+  --shadow: 0 6px 20px rgba(59, 57, 54, 0.05);
+  --glass: rgba(240, 238, 235, 0.88);
+  --visited: #1d4ed8;
+  --planned: #db2777;
+  --highlighted: #9333ea;
+  --searched: #0891b2;
+  --live: #16a34a;
+  --clicked: #dc2626;
+}
+
+/* charcoal dark */
+:root[data-theme='charcoal'] {
+  color-scheme: dark;
+  --bg: #181818;
+  --bg-elev: #202020;
+  --surface: #292929;
+  --text: #d4d4d4;
+  --text-strong: #f5f5f5;
+  --muted: #999999;
+  --border: rgba(255, 255, 255, 0.09);
+  --hover: rgba(255, 255, 255, 0.06);
+  --accent: #a3a3a3;
+  --accent-hover: #d4d4d4;
+  --accent-soft: rgba(163, 163, 163, 0.12);
+  --danger: #ef7777;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  --glass: rgba(32, 32, 32, 0.88);
+  --visited: #60a5fa;
+  --planned: #f472b6;
+  --highlighted: #c084fc;
+  --searched: #22d3ee;
+  --live: #4ade80;
+  --clicked: #f87171;
+}
+
+/* paper: monochrome off-white, black ink accent (light twin of charcoal) */
+:root[data-theme='paper'] {
+  color-scheme: light;
+  --bg: #fafafa;
+  --bg-elev: #ffffff;
+  --surface: #f4f4f4;
+  --text: #111111;
+  --text-strong: #000000;
+  --muted: #6b6b6b;
+  --border: #e4e4e4;
+  --hover: rgba(17, 17, 17, 0.05);
+  --accent: #111111;
+  --accent-hover: #333333;
+  --accent-soft: rgba(17, 17, 17, 0.07);
+  --danger: #c0392b;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  --glass: rgba(255, 255, 255, 0.9);
+  --visited: #1d4ed8;
+  --planned: #db2777;
+  --highlighted: #9333ea;
+  --searched: #0891b2;
+  --live: #16a34a;
+  --clicked: #dc2626;
+}
+
+/* one colour per pin type, used by markers, badges and the legend */
+.pin-visited, .badge-visited { --c: var(--visited); }
+.pin-planned, .badge-planned { --c: var(--planned); }
+.pin-highlighted, .badge-highlighted { --c: var(--highlighted); }
+.pin-searched, .badge-searched { --c: var(--searched); }
+.pin-live, .badge-live { --c: var(--live); }
+.pin-clicked, .badge-clicked { --c: var(--clicked); }

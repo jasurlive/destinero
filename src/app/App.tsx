@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
-import '../tools/css/reset.css'
-import '../tools/css/theme.css'
-import '../tools/css/page.css'
-import Layout from '../tools/components/Layout'
-import Embed from '../tools/components/Embed'
-import MapPage from '../tools/pages/MapPage'
-import Places from '../tools/pages/Places'
-import Help from '../tools/pages/Help'
-import NotFound from '../tools/pages/NotFound'
+import '../css/reset.css'
+import '../css/theme.css'
+import '../css/page.css'
+import Layout from '../components/Layout'
+import Embed from '../components/Embed'
+import MapPage from '../pages/MapPage'
+import Places from '../pages/Places'
+import Help from '../pages/Help'
+import NotFound from '../pages/NotFound'
 
-// add a page: create it in tools/pages, add a <Route> here and an item in Menu.tsx
+// add a page: create it in src/pages, add a <Route> here and an item in Menu.tsx
 export default function App() {
   return (
     <BrowserRouter>
@@ -23,7 +23,7 @@ export default function App() {
 
         {/* no navbar, for iframes on other sites (see README) */}
         <Route element={<Embed />}>
-          <Route path="itravelmap" element={<MapPage />} />
+          <Route path="itravelmap" element={<MapPage embed />} />
           <Route path="iblogs" element={<Places embed />} />
         </Route>
       </Routes>

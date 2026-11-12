@@ -5,11 +5,12 @@ import { ImSpinner2 } from "react-icons/im";
 import { useMap } from "react-leaflet";
 import { useFlyTo } from "../hooks/useFlyTo";
 import { DEFAULT_VIEW, type Pin } from "./types";
+import { geocode } from "./geocode";
 
 type Busy = "search" | "locate" | null;
 
-// floating search box + map buttons (bottom right)
-export default function Controls({ addPin }: { addPin: (pin: Pin) => void }) {
+// map buttons (bottom right) + a floating search box when there's no navbar (embed)
+export default function Controls({ addPin, search: withSearch }: { addPin: (pin: Pin) => void; search?: boolean }) {
   const map = useMap();
   const { flyTo } = useFlyTo();
   const ref = useRef<HTMLDivElement>(null);
@@ -30,14 +31,10 @@ export default function Controls({ addPin }: { addPin: (pin: Pin) => void }) {
     setBusy("search");
     setNotFound(false);
     try {
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`,
-      );
-      const [first] = await res.json();
-      if (!first) return setNotFound(true);
-      const coords: [number, number] = [Number(first.lat), Number(first.lon)];
-      flyTo(coords, { zoom: 13, duration: 2 });
-      map.once("moveend", () => addPin({ type: "searched", name: query, coords }));
+      const pin = await geocode(query.trim());
+      if (!pin) return setNotFound(true);
+      flyTo(pin.coords, { zoom: 13, duration: 2 });
+      map.once("moveend", () => addPin(pin));
       setQuery("");
     } catch {
       setNotFound(true);
@@ -61,6 +58,7 @@ export default function Controls({ addPin }: { addPin: (pin: Pin) => void }) {
 
   return (
     <div ref={ref} className="map-controls">
+      {withSearch && (
       <form className={`map-search ${notFound ? "not-found" : ""}`} onSubmit={search}>
         {busy === "search" ? <ImSpinner2 className="spin" /> : <FiSearch />}
         <input
@@ -70,6 +68,7 @@ export default function Controls({ addPin }: { addPin: (pin: Pin) => void }) {
           aria-label="Search place"
         />
       </form>
+      )}
 
       <div className="map-buttons">
         <button type="button" onClick={() => map.zoomIn()} title="Zoom in">

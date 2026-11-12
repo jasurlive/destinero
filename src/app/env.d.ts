@@ -1,5 +1,5 @@
 interface ImportMetaEnv {
-  readonly VITE_MAPKEY?: string
+  readonly VITE_ENABLE_EXTRA_THEMES?: string
 }
 
 interface ImportMeta {
