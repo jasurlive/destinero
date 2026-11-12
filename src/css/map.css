@@ -16,8 +16,12 @@
   filter: brightness(0.9) contrast(1.05);
 }
 
+/* phones: map runs under the floating navbar (no reserved strip), so lift
+   bottom controls above the pill instead */
 @media (max-width: 768px) {
-  .with-menu .map-page { height: calc(100dvh - var(--bar-space)); }
+  .with-menu:has(.map-page) { padding-bottom: 0; }
+  .with-menu .map-buttons { bottom: calc(var(--bar-space) + 0.75rem); }
+  .with-menu .leaflet-bottom { bottom: var(--bar-space); }
 }
 
 /* ---------- markers ---------- */
