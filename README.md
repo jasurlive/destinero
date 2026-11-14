@@ -4,7 +4,8 @@ Personal travel map built with React, TypeScript, Vite and Leaflet. The frontend
 [django-react](https://github.com/jasurlive/django-react) template: collapsible sidebar (bottom bar on
 mobile), theme tokens, and light / dark themes.
 
-<img width="1918" height="874" alt="image" src="https://github.com/user-attachments/assets/04fc973d-1d42-42d2-b2da-630f768ceacd" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/147ab48b-8b9a-4497-8a97-508355e0e753" />
+<img width="30%" alt="image" src="https://github.com/user-attachments/assets/2de60152-422b-46b0-852f-6d9051437ec1" />
 
 ## Features
 
