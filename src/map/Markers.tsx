@@ -19,18 +19,34 @@ const ICONS: Record<PinType, React.ReactElement> = {
   clicked: <IoLocationSharp />,
 };
 
+// The point (in the 32×32 box, 28px glyph centred in it) that sits on the
+// coordinate. Pointy icons stand on their tip; symbol icons sit on their centre.
+// The pennant's pole is near the left edge of its glyph, not the middle.
+const ANCHORS: Record<PinType, [number, number]> = {
+  visited: [6, 28],
+  planned: [16, 16],
+  highlighted: [16, 16],
+  searched: [16, 16],
+  live: [16, 29],
+  clicked: [16, 29],
+};
+
 // built once per type, not on every render
 const DIV_ICONS = Object.fromEntries(
-  Object.entries(ICONS).map(([type, icon]) => [
-    type,
-    new DivIcon({
-      html: renderToStaticMarkup(icon),
-      className: `pin pin-${type}`,
-      iconSize: [32, 32],
-      iconAnchor: [16, 28],
-      popupAnchor: [0, -24],
-    }),
-  ]),
+  Object.entries(ICONS).map(([type, icon]) => {
+    const [x, y] = ANCHORS[type as PinType];
+    return [
+      type,
+      new DivIcon({
+        html: renderToStaticMarkup(icon),
+        className: `pin pin-${type}`,
+        iconSize: [32, 32],
+        iconAnchor: [x, y],
+        // popup tip just above the glyph's top edge, over the anchor
+        popupAnchor: [0, 2 - y],
+      }),
+    ];
+  }),
 ) as Record<PinType, DivIcon>;
 
 type MarkerProps = {

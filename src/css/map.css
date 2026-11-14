@@ -49,6 +49,9 @@
   .leaflet-marker-icon.pin:hover { z-index: 1000 !important; }
   .leaflet-marker-icon.pin:hover svg { transform: scale(1.2); }
 }
+/* grow from the point that sits on the coordinate */
+.pin-visited svg { transform-origin: 15% 92%; }
+.pin-planned svg, .pin-highlighted svg, .pin-searched svg { transform-origin: center; }
 .pin-highlighted svg { animation: pulse 1.6s ease-in-out infinite; }
 
 @keyframes pulse {
@@ -254,21 +257,27 @@
 
 .popup-flag { flex-shrink: 0; margin-top: 2px; border-radius: 2px; }
 
+/* fixed rectangle, photo cropped to fill it around its centre */
 .popup-image {
+  position: relative;
   display: grid;
   place-items: center;
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--border);
 }
 
 .popup-image img {
-  grid-area: 1 / 1;
+  position: absolute;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   opacity: 0;
   transition: opacity 0.3s, transform 0.3s;
 }
